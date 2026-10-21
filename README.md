@@ -45,7 +45,7 @@ stk measure micrographs/ -o features.csv      # a folder
 ## Reproduce
 
 ```bash
-pip install -e ".[bench]"                   # pins scikit-learn 1.8 (fold assignment changed in 1.9)
+pip install -e ".[bench]"                   # Python 3.11+; pins scikit-learn 1.8 (fold assignment changed in 1.9)
 python tools/fetch_data.py baselines        # HOG + Haralick features for UHCSDB (22 MB)
 python benchmarks/uhcsdb.py                 # classification, grouping sensitivity, ablation, union, ambiguity
 python benchmarks/bainite.py
