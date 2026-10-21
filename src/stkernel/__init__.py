@@ -11,6 +11,6 @@ Part of Parallax Metrology: https://www.parallaxmetrology.com
 from .core import COORDINATES, VERSION, measure, measure_field, measure_many, prepare_micrograph
 from .featurizer import STKFeaturizer
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = ["measure", "measure_field", "measure_many", "prepare_micrograph", "STKFeaturizer",
            "COORDINATES", "VERSION", "__version__"]

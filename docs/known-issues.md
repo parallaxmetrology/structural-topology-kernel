@@ -30,7 +30,7 @@ The headline (0.832) uses `GroupKFold(5)` by specimen. Which specimens land in w
 | unkeyed micrographs pooled as one specimen | 0.797 | 0.693 | 0.584 |
 | unkeyed micrographs dropped (803 images, 43 specimens) | 0.752 | 0.706 | 0.592 |
 
-STK leads HOG by 0.05–0.10 and Haralick by 0.16–0.21 in every row. The absolute number is not stable to ±0.01, and the strictest reading is about 0.75. Even the type of the specimen labels matters: the dropped row gives 0.768 if the keys are numbers instead of strings, because ties between equal-size specimens are broken by sort order. `pip install ".[bench]"` pins scikit-learn 1.8 so the recorded numbers reproduce exactly.
+STK leads HOG by 0.05–0.10 and Haralick by 0.16–0.21 in every row. The absolute number is not stable to ±0.01, and the strictest reading is about 0.75. Even the type of the specimen labels matters: the dropped row gives 0.768 if the keys are numbers instead of strings, because ties between equal-size specimens are broken by sort order. `pip install ".[bench]"` pins scikit-learn 1.8 so the recorded numbers reproduce exactly on the reference platform (macOS arm64; see §10).
 
 The union comparison is the most fold-sensitive: STK-50 vs a 50-component PCA of S2 + Haralick + HOG is +0.111 with scikit-learn 1.8 and +0.084 with 1.9.
 

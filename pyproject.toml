@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "structural-topology-kernel"
-version = "0.1.0"
+version = "0.1.1"
 description = "Structural Topology Kernel (STK): 50 deterministic, training-free structural coordinates for microstructure images. matminer-compatible featurizer."
 readme = "README.md"
 license = "MIT"

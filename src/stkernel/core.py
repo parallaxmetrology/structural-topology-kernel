@@ -5,6 +5,7 @@ folder measurement. Numbers are pinned by tests/test_golden.py.
 from __future__ import annotations
 
 import os
+import warnings
 from pathlib import Path
 from typing import Dict, Iterable, List, Tuple, Union
 
@@ -21,6 +22,30 @@ IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp"}
 ImageLike = Union[str, os.PathLike, Image.Image, np.ndarray]
 
 
+def _to_gray_uint8(a: np.ndarray) -> np.ndarray:
+    """An array as the 8-bit grayscale image PIL's convert("L") would give for the same
+    picture: uint8 kept, other integer types scaled by their range, floats in [0, 1]
+    scaled by 255, other floats taken as 0-255; color uses ITU-R 601 luma like PIL."""
+    a = np.asarray(a)
+    if a.ndim == 3:
+        if a.dtype == np.uint8 and a.shape[2] in (3, 4):
+            return np.array(Image.fromarray(np.ascontiguousarray(a[..., :3])).convert("L"))
+        a = a[..., :3].astype(np.float64) @ np.array([0.299, 0.587, 0.114]) if a.shape[2] >= 3 else a[..., 0]
+    if a.ndim != 2:
+        raise ValueError(f"expected a 2-D image or an H x W x 3/4 color image, got shape {a.shape}")
+    if a.dtype == np.uint8:
+        return a
+    if a.dtype == bool:
+        return a.astype(np.uint8) * 255
+    if np.issubdtype(a.dtype, np.integer):
+        a = a.astype(np.float64) * (255.0 / np.iinfo(a.dtype).max)
+    else:
+        a = a.astype(np.float64)
+        if np.nanmin(a) >= 0 and np.nanmax(a) <= 1.0:
+            a = a * 255.0
+    return np.clip(np.round(np.nan_to_num(a)), 0, 255).astype(np.uint8)
+
+
 def prepare_micrograph(image: ImageLike, size: int = 512, crop_info_bar: bool = True,
                        bar_threshold: int = 40, bar_search: int = 80) -> np.ndarray:
     """Grayscale field in [0, 1], as in the published benchmarks.
@@ -30,8 +55,7 @@ def prepare_micrograph(image: ImageLike, size: int = 512, crop_info_bar: bool = 
     resizes to `size` x `size` with Lanczos, and min-max normalizes.
     """
     if isinstance(image, np.ndarray):
-        a = image if image.ndim == 2 else image.mean(axis=2)
-        a = np.asarray(Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)))
+        a = _to_gray_uint8(image)
     else:
         im = image if isinstance(image, Image.Image) else Image.open(image)
         a = np.array(im.convert("L"))
@@ -49,7 +73,9 @@ def prepare_micrograph(image: ImageLike, size: int = 512, crop_info_bar: bool = 
 def measure_field(field: np.ndarray) -> Dict[str, float]:
     """The 50 coordinates of a 2-D field (normalized to [0, 1] internally). Use this for
     binary masks, EBSD-derived maps or anything already preprocessed."""
-    out = _stk50.compute_full_kernel(np.asarray(field, dtype=np.float64))
+    with warnings.catch_warnings():  # the frozen kernel uses a scikit-image argument deprecated in 0.26
+        warnings.filterwarnings("ignore", message="Parameter `min_size` is deprecated", category=FutureWarning)
+        out = _stk50.compute_full_kernel(np.asarray(field, dtype=np.float64))
     return {k: out[k] for k in COORDINATES}
 
 

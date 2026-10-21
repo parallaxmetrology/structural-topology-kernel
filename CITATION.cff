@@ -6,7 +6,7 @@ authors:
   - family-names: Parrish
     given-names: Russell
     orcid: https://orcid.org/0009-0008-9781-7995
-version: "0.1.0"
+version: "0.1.1"
 date-released: 2026-10-21
 license: MIT
 url: https://www.parallaxmetrology.com/stk_pm.html
@@ -16,5 +16,5 @@ abstract: >
   A fixed, training-free 50-coordinate descriptor of grayscale microstructure fields.
   On UHCSDB steel micrographs it reaches 0.832 macro AUC grouped by specimen (HOG 0.728,
   Haralick 0.629), 0.964 on a second bainite dataset, matches standard descriptors on
-  2-D permeability, and quantifies label ambiguity. Benchmarks reproduce exactly from
-  shipped feature tables.
+  2-D permeability, and quantifies label ambiguity. The benchmarks reproduce these
+  results from shipped feature tables.

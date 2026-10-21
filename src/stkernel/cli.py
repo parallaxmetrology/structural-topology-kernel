@@ -27,7 +27,8 @@ def main(argv=None) -> int:
         else:
             df.to_csv(sys.stdout, index=False)
     else:
-        print(json.dumps(measure(p, size=a.size, crop_info_bar=not a.no_crop), indent=2))
+        c = measure(p, size=a.size, crop_info_bar=not a.no_crop)
+        print(json.dumps({k: (None if v != v else v) for k, v in c.items()}, indent=2))  # NaN -> null (valid JSON)
     return 0
 
 

@@ -12,7 +12,7 @@ On ultrahigh carbon steel micrographs, grouped by specimen so no specimen appear
 | HOG | 7,200 | 0.728 |
 | Haralick GLCM | 196 | 0.629 |
 
-The same representation also gets a second steel dataset (bainite, 0.964 macro AUC by specimen), predicts 2-D permeability as well as the standard porosity/S2 descriptors (R² 0.939 vs 0.937), and measures where class labels are genuinely ambiguous: mixtures sit between their parent classes, and the ambiguity it flags predicts where *other* descriptors fail. Details and caveats: [docs/evidence.md](docs/evidence.md). Every number reproduces exactly from the shipped feature tables.
+The same representation also gets a second steel dataset (bainite, 0.964 macro AUC by specimen), predicts 2-D permeability as well as the standard porosity/S2 descriptors (R² 0.939 vs 0.937), and measures where class labels are genuinely ambiguous: mixtures sit between their parent classes, and the ambiguity it flags predicts where *other* descriptors fail. Details and caveats: [docs/evidence.md](docs/evidence.md). These results reproduce exactly from the feature tables in this repository plus one 22 MB download (scikit-learn 1.8 on macOS arm64; within about 0.003 elsewhere).
 
 ## Install
 

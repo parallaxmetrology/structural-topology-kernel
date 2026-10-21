@@ -1,6 +1,6 @@
 # Evidence
 
-Every number here is in `results/recorded/` and reproduces exactly with the scripts in `benchmarks/` (scikit-learn 1.8; see [known-issues.md](known-issues.md) §4 for why the version matters).
+Sections 1–4 are in `results/recorded/` and reproduce exactly with the scripts in `benchmarks/` (scikit-learn 1.8 on macOS arm64; on other platforms within about 0.003, see [known-issues.md](known-issues.md) §4 and §10). The results under *Also recorded* are kept as records only; their features aren't shipped.
 
 ## 1. Microconstituent classification: UHCSDB
 
