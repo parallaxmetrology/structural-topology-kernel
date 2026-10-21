@@ -56,7 +56,7 @@ The bainite benchmark uses the 386-image test set (26 specimens). The training s
 
 ## 10. Platform differences
 
-Golden values were made on macOS arm64 and match there to float precision. Elsewhere OpenCV's Canny/contours and BLAS can shift edge- and contour-based coordinates slightly; the tests use tolerances off the reference platform.
+Golden values were made on macOS arm64 and match there to float precision. Elsewhere OpenCV's Canny/contours and BLAS can shift edge- and contour-based coordinates slightly; the tests use tolerances off the reference platform. Benchmark scores move too: on Linux the bainite AUC comes out 0.966 instead of 0.964 with the same scikit-learn, from differences in the numerical libraries under the logistic regression.
 
 ## 11. Failure values
 
