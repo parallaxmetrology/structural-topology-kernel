@@ -1,0 +1,8 @@
+{
+  "dataset": "AlSi10Mg KoBo (Zenodo 10597961), 8 state-maps, one acquisition",
+  "task": "as-built SLM vs annealed, GroupKFold by map",
+  "n_maps": 8,
+  "n_patches": 128,
+  "auc": 1.0,
+  "caveat": "1 map per state -> leakage-safe but underpowered (8 maps). Indicative only. AlSi10Mg cannot support a powered classification (the dataset is 1 map/state)."
+}

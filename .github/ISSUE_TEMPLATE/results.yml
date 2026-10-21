@@ -1,0 +1,25 @@
+name: Results on your data
+description: How the coordinates did on your microstructure data
+labels: [results]
+body:
+  - type: input
+    id: modality
+    attributes:
+      label: Modality and tool
+      placeholder: e.g. SEM, EBSD, optical micrographs, CT slices, simulated fields
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task and data
+      description: Classes or process variable, number of images, how labels were made. No proprietary detail needed.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened
+      description: Accuracy or separation numbers, which coordinates mattered, where it failed.
+    validations:
+      required: true

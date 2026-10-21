@@ -1,0 +1,13 @@
+{
+  "vtl_margin_predicts_error_auc": {
+    "VTL (self, expected high)": 0.7677011494252874,
+    "HOG (independent)": 0.587518253919674,
+    "Haralick (independent)": 0.6498459707344396
+  },
+  "oof_acc": {
+    "VTL (self, expected high)": 0.72840790842872,
+    "HOG (independent)": 0.5483870967741935,
+    "Haralick (independent)": 0.449531737773153
+  },
+  "verdict": "VTL ambiguity-margin predicts misclassification by INDEPENDENT descriptors (HOG/Haralick) at AUC>0.5 -> the label ambiguity VTL flags is intrinsic to the samples (genuine fuzziness), not a VTL artifact. Cross-validates the C.1 contribution."
+}

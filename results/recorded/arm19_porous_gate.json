@@ -1,0 +1,30 @@
+{
+  "n_train": 2000,
+  "n_test": 2000,
+  "R2": {
+    "porosity only": {
+      "lin": 0.9196476681252279,
+      "gbm": 0.9135899650988987
+    },
+    "full incumbent (por+SS+Euler+S2)": {
+      "lin": 0.9366863193688035,
+      "gbm": 0.9195780185865747
+    },
+    "VTL-50": {
+      "lin": 0.9386323080032619,
+      "gbm": 0.927748724388842
+    },
+    "incumbent + VTL": {
+      "lin": 0.9384839854445105,
+      "gbm": 0.9293016338490858
+    }
+  },
+  "vtl_adds_beyond_incumbent": {
+    "lin": 0.0017976660757069718,
+    "gbm": 0.009723615262511087
+  },
+  "note": "2D imgs+2D permeability (#6 ok). Headline=\u0394R2. Strong if VTL adds; clean null if ~0 -> reframe.",
+  "VERDICT": "CLEAN NULL on the kill-box bar. Fair field/network structure->property test (2D permeability, dim #6 matched, well-powered N=2000 test, serious incumbent). VTL-50 alone predicts log-permeability well (R2=0.94) and EDGES the bespoke incumbent (0.939 vs 0.937, both > porosity-alone 0.920) \u2014 so VTL autonomously recovers the connectivity residual beyond porosity as well as porosity+S2+Euler do. BUT it adds essentially nothing beyond them (\u0394R2 +0.002 lin / +0.010 gbm, within noise). So VTL is a STRONG, competitive, interpretable descriptor \u2014 NOT a property-prediction instrument that surpasses incumbents. Kill-box invoked: stop, reframe Materials (Option A). This was the FAIR test (unlike RPData object-dominated); the null is clean.",
+  "VERDICT_v2": "DUAL READ (sharper than clean-null). (1) ADDITIVITY NULL: incumbent+VTL (0.938) does not beat either alone -> VTL opens no NEW independent channel beyond porosity/SS/Euler/S2 (spaces overlap). (2) COMPACT-SURROGATE POSITIVE: VTL-50 ALONE reaches incumbent level (0.939 vs 0.937 lin, 0.928 vs 0.920 gbm, both > porosity 0.920) -> a 50-coord deterministic readout matches/edges bespoke porous-media descriptors on held-out permeability. The SAME 50 coords also do classification (0.83) + fuzziness => one interpretable instrument matching TASK-SPECIFIC incumbents across 3 tasks. COMPUTE CAVEAT (honesty): VTL is NOT cheaper than these incumbents - porosity/perimeter/Euler/single-FFT-S2 are ~1ms; VTL watershed/blob ~0.4-2.7s/img (100-1000x slower). Defensible: compact + interpretable + unified (multi-task), NOT compute-cheap. Materials = Option A with this surrogate framing.",
+  "cnn_ceiling_context": "Paper top model ConvNeXt-Small R2=0.99460 on 4000 test (verified, arXiv:2512.01517). COMPARISON IS INDICATIVE NOT EXACT: my R2 is on log10(mean-diag permeability), 2000 test, lin/gbm; paper predicts the 2x2 TENSOR, target scale (raw vs log) + aggregation UNSPECIFIED in abstract; permeability spans ~2 orders => raw-R2 != log-R2. Robust claim = TIER ORDERING (porosity 0.92 < VTL/classical 0.94 << trained CNN ~0.99), not the precise gap. WHY CNN hits 0.99: target is a NOISELESS deterministic function of exact pixels (LBM on same binary) + synthetic/learnable + 24k N => approximable to arbitrary precision; the ~6% residual is fine throat/channel geometry that 50 fixed coords structurally compress away (compression ceiling, not comprehension). CNN edge is dataset-specific (clean synthetic) and SHRINKS on real noisy small-N micro-CT. SCOPE: CNN is a single-task permeability specialist; VTL is a multi-task generalist (same coords do classification+fuzziness). 2000-train is NOT a VTL handicap (50-feature regressor saturates; CNN needs 20k for its capacity). Paper: own generalist/interpretable lane, concede the trained-DL ceiling openly."
+}

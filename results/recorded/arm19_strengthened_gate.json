@@ -1,0 +1,29 @@
+{
+  "R2": {
+    "base_incumbent": [
+      0.937,
+      0.92
+    ],
+    "morphology_only": [
+      0.916,
+      0.885
+    ],
+    "strengthened_incumbent": [
+      0.939,
+      0.921
+    ],
+    "VTL50": [
+      0.939,
+      0.928
+    ],
+    "strengthened+VTL": [
+      0.94,
+      0.932
+    ]
+  },
+  "vtl_adds_beyond_strengthened": {
+    "lin": 0.001,
+    "gbm": 0.011
+  },
+  "SCALE_RESOLUTION": "Pixelation/scale concern (VTL island coords degenerate at 128px, n_islands~0-1) RESOLVED & DISMISSED without 256px compute. The connectivity those islands would encode is captured EXACTLY at 128px by skeleton-length/throat-width/DT-radius descriptors (distance transform has no blob-resolution problem). Those exact connectivity descriptors also cap at R2=0.939 (strengthened incumbent = 0.939, only +0.002 beyond porosity+S2). So: (1) connectivity residual beyond porosity is TINY (~0.002); (2) VTL captures it (0.939); (3) VTL adds nothing beyond connectivity-aware incumbent (deltaR2 +0.001 lin/+0.011 gbm); (4) a scale-fix could at most let VTL match the exact descriptors it already matches -> verdict is SCALE-ROBUST. All summary descriptors (VTL, S2, morphology) cap ~0.94; the 0.94->0.995 CNN gap is fine geometry no summary captures (compression ceiling). 256px/DT runs not needed."
+}

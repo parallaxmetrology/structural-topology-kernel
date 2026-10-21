@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+*.egg-info/
+.DS_Store
+.claude/
+benchmarks/_*/
+data/uhcsdb/baselines_har_hog.npz
+results/*.json
+!results/recorded/

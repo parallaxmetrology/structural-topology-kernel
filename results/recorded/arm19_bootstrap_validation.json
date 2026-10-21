@@ -1,0 +1,23 @@
+{
+  "permeability_deltaR2_vtl_beyond_strengthened_incumbent": {
+    "linear": {
+      "point": 0.001,
+      "ci95": [
+        -0.0008,
+        0.0028
+      ],
+      "includes_0": true
+    },
+    "gbm": {
+      "point": 0.0106,
+      "ci95": [
+        0.0052,
+        0.0161
+      ],
+      "includes_0": false
+    }
+  },
+  "interpretation": "VTL adds 0 linearly (CI includes 0) but a SMALL statistically-significant nonlinear residual via GBM (+0.011, CI excludes 0; incumbent 0.921->0.932). Marginal in magnitude, scale-robust (256 ablation gbm +0.022 consistent), not a new independent channel, but NOT strictly zero. Corrects the earlier \"adds nothing/deltaR2~0\" framing.",
+  "n_test": 2000,
+  "n_boot": 2000
+}

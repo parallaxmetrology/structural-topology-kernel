@@ -1,0 +1,24 @@
+{
+  "VTL-50": {
+    "ungrouped": 0.9259946888821565,
+    "grouped": 0.8316019214096393
+  },
+  "HOG-7200": {
+    "ungrouped": 0.7913511527390737,
+    "grouped": 0.7275744513048653
+  },
+  "Haralick-196": {
+    "ungrouped": 0.7187876290674813,
+    "grouped": 0.6293898484403152
+  },
+  "vtl_grouped_per_class": {
+    "martensite": 0.5545045045045045,
+    "network": 0.972359372244754,
+    "pearlite": 0.8962500481751262,
+    "pearlite+spheroidite": 0.8212370592483966,
+    "pearlite+widmanstatten": 0.8880958045840273,
+    "spheroidite": 0.9285955051061774,
+    "spheroidite+widmanstatten": 0.7601711560044891
+  },
+  "note": "961 micrographs from 43 samples. Per-image CV LEAKED specimens. Grouped-by-sample is honest. martensite(2 samples)/pearlite+spheroidite(6) intrinsically limited under grouping."
+}

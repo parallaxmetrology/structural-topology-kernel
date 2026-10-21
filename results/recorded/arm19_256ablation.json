@@ -1,0 +1,78 @@
+{
+  "N": 500,
+  "islands_128_vs_256": {
+    "n_islands": {
+      "m128": 0.832,
+      "s128": 0.7455038564621915,
+      "m256": 4.426,
+      "s256": 1.3283538685154646,
+      "nz128": 0.656,
+      "nz256": 1.0
+    },
+    "island_size_cv": {
+      "m128": 0.05119931513755532,
+      "s128": 0.14358414205280823,
+      "m256": 0.49693543740291524,
+      "s256": 0.1875297628140702,
+      "nz128": 0.15,
+      "nz256": 0.988
+    },
+    "island_spread": {
+      "m128": 0.0262505944207907,
+      "s128": 0.06311673969415219,
+      "m256": 0.2129364498950867,
+      "s256": 0.036537317450882505,
+      "nz128": 0.15,
+      "nz256": 0.988
+    },
+    "resistance_mean": {
+      "m128": 0.05044974097578528,
+      "s128": 0.13457137355141607,
+      "m256": NaN,
+      "s256": NaN,
+      "nz128": 0.15,
+      "nz256": 1.0
+    },
+    "drain_confidence": {
+      "m128": 0.005294377563920193,
+      "s128": 0.04247467090953772,
+      "m256": 0.17861723637795957,
+      "s256": 0.09590455837620883,
+      "nz128": 0.09,
+      "nz256": 0.948
+    }
+  },
+  "R2": {
+    "strengthened_incumbent": [
+      0.942,
+      0.905
+    ],
+    "VTL128": [
+      0.94,
+      0.917
+    ],
+    "VTL256": [
+      0.935,
+      0.93
+    ],
+    "strengthened+VTL128": [
+      0.94,
+      0.916
+    ],
+    "strengthened+VTL256": [
+      0.933,
+      0.927
+    ]
+  },
+  "vtl_add_beyond_strengthened": {
+    "128": [
+      -0.002,
+      0.011
+    ],
+    "256": [
+      -0.009,
+      0.022
+    ]
+  },
+  "VERDICT": "SCALE OBJECTION CLOSED by direct bounded ablation (N=500, pre-declared). (a) The island/resistance coords DO wake up at 256px (n_islands 0.83->4.43, frac-nonzero 0.66->1.00; island_size_cv/spread/drain similar) \u2014 confirming the 128px under-resolution was real (Russell diagnosis correct). (b) But VTL residual over the connectivity-aware strengthened incumbent does NOT materially increase: \u0394R2 beyond strengthened 128px(-0.002 lin/+0.011 gbm) vs 256px(-0.009 lin/+0.022 gbm); change from upsampling -0.007 lin/+0.011 gbm = mixed, marginal, within noise at N=500, opposite signs. strengthened+VTL256 (0.927) does not beat VTL256 alone (0.930) => no independent signal. resistance_mean NaN at 256 (graph degeneracy). The one skeptic-number: VTL256 gbm 0.930 (highest single-descriptor gbm) but noise-level + linear-contradicted + non-independent. CONCLUSION: 128px verdict (VTL = competitive compact surrogate, not additive beyond standard descriptors) is SCALE-ROBUST, verified directly not reasoned. No further 256/full rerun warranted."
+}

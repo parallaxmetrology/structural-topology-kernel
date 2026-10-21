@@ -1,0 +1,14 @@
+{
+  "continuum": "mixed classes projected onto pure-parent axes (0..1=between)",
+  "ambiguity_rate_overall": 0.3975026014568158,
+  "ambiguity_by_class": {
+    "martensite": 0.2777777777777778,
+    "network": 0.33490566037735847,
+    "pearlite": 0.5080645161290323,
+    "pearlite+spheroidite": 0.5607476635514018,
+    "pearlite+widmanstatten": 0.37037037037037035,
+    "spheroidite": 0.30213903743315507,
+    "spheroidite+widmanstatten": 0.6790123456790124
+  },
+  "interpretation": "VTL gives a reproducible continuous structural position. Mixed classes sit between pure parents (continuum, not category). ~X% of samples are closer to another class centroid -> reproducibly-flagged label ambiguity, concentrated where the taxonomy is genuinely fuzzy (mixtures vs parents). This is the domain contribution: reproducible structural measurement where categorical expert labels are subjective."
+}

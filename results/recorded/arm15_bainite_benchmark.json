@@ -1,0 +1,18 @@
+{
+  "n": 386,
+  "n_specimens": 26,
+  "classes": [
+    "i",
+    "ii",
+    "iii"
+  ],
+  "grouped": true,
+  "vtl50_macro_auc": 0.9636978881397633,
+  "vtl50_accuracy": 0.927461139896373,
+  "vtl_pca10_macro_auc": 0.9636978881397633,
+  "ambiguity_predicts_own_error_auc": 0.9300678371907423,
+  "note": "Cross-dataset armor on a 2nd steel SEM set (bainite, 3 documented-subjective subclasses). GroupKFold by specimen (leakage-safe, lesson from UHCSDB). NOT the inter-observer ballgame: single consensus label per image, no per-annotator labels released. Ambiguity test is proxy (VTL-space margin vs VTL/own errors), not observer-independent.",
+  "ambiguity_caveat": "CIRCULAR: VTL-space margin predicting VTL classifier own-errors is partly tautological (both in same space). Not a fuzziness validation. The non-circular test (margin vs an INDEPENDENT descriptor errors, as UHCSDB C.2 did vs HOG/Haralick) was not run on bainite (no independent features computed).",
+  "power_caveat": "Only 26 specimens (i=13, ii=7, iii=6); grouped macro AUC 0.964 has a wide CI. Classes are an M-A island SIZE ordering (small/mixed/large), which VTL blob/island coords capture directly.",
+  "full_set_examined": "Pulled the full set (im_train_aug_768, 932 tiles). It is AUGMENTED (UUID-suffixed original_..._<hash> and 768_ variants), not new specimens \u2014 true physical specimens number far fewer and cannot be cleanly degrouped from augmentation naming. Combining would manufacture bigger-N via augmentation leakage. Decision: do NOT combine; the authors held-out test set (386 tiles, 26 genuine specimens) remains the clean evaluation. arm15 (0.964, 26-specimen caveat) stands."
+}

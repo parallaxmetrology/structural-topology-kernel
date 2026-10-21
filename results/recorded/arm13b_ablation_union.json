@@ -1,0 +1,15 @@
+{
+  "grouped": true,
+  "concern2_ablation": {
+    "full": 0.8316019214096393,
+    "structural_only": 0.8285696463598216,
+    "acq_only": 0.771097563230124,
+    "verdict": "structural"
+  },
+  "concern3_union": {
+    "vtl50": 0.8316019214096393,
+    "union_full": 0.7801115947139825,
+    "union_pca50": 0.7208042866063431,
+    "vtl_vs_union_pca50": 0.11079763480329619
+  }
+}

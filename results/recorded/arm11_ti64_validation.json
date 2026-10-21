@@ -1,0 +1,35 @@
+{
+  "dataset": "Ti-6Al-4V 18 conditions (Zenodo 6554355), same acquisition",
+  "n_maps": 18,
+  "n_patches": 72,
+  "task": "rolling-temperature regression, GroupKFold by map (leakage-safe)",
+  "full_vtl_cv_r2": 0.4095081356934682,
+  "full_vtl_spearman": 0.585404041727457,
+  "top_temp_coords": [
+    [
+      "mu",
+      0.6910585144991236
+    ],
+    [
+      "r_v",
+      0.6221874507664816
+    ],
+    [
+      "nils",
+      0.6206221993180125
+    ],
+    [
+      "rho_r",
+      0.619839573593778
+    ],
+    [
+      "ds_mid",
+      0.6131872549377841
+    ],
+    [
+      "ds_low",
+      0.6002739304879138
+    ]
+  ],
+  "note": "Full-instrument generalization test on a 2nd dataset + continuous variable. Re-tests Arm 4a (bdf_cv tracked temp) with full kernel."
+}

@@ -1,0 +1,8 @@
+{
+  "grouped": true,
+  "vtl_margin_predicts_incumbent_error_auc": {
+    "HOG": 0.6042040247061168,
+    "Haralick": 0.6451627288862726
+  },
+  "note": "C.2 re-run under GroupKFold. VTL-space ambiguity still predicts where independent incumbents misclassify, under specimen-grouped CV. Confirms the fuzziness signal is not a per-image leakage artifact."
+}

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "structural-topology-kernel"
+version = "0.1.0"
+description = "Structural Topology Kernel (STK): 50 deterministic, training-free structural coordinates for microstructure images. matminer-compatible featurizer."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Russell Parrish", email = "russellgparrish@gmail.com" }]
+requires-python = ">=3.9"
+keywords = ["materials informatics", "microstructure", "SEM", "EBSD", "featurizer", "matminer", "image descriptors", "steel"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Scientific/Engineering :: Image Processing",
+  "Programming Language :: Python :: 3",
+]
+# scikit-image < 2: the frozen kernel uses remove_small_objects(min_size=...), removed in 2.0
+dependencies = ["numpy>=1.23", "scipy>=1.9", "scikit-image>=0.20,<2", "opencv-python-headless>=4.8", "pillow>=9.5", "pandas>=1.5"]
+
+[project.optional-dependencies]
+# 1.8 exactly: GroupKFold fold assignment changed in 1.9 (docs/known-issues.md §4)
+bench = ["scikit-learn>=1.8,<1.9"]
+matminer = ["matminer>=0.9"]
+dev = ["pytest>=7", "ruff", "scikit-learn>=1.8,<1.9"]
+
+[project.scripts]
+stk = "stkernel.cli:main"
+
+[project.urls]
+Homepage = "https://www.parallaxmetrology.com/stk_pm.html"
+Source = "https://github.com/parallaxmetrology/structural-topology-kernel"
+Issues = "https://github.com/parallaxmetrology/structural-topology-kernel/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stkernel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore:Parameter `min_size` is deprecated:FutureWarning"]
+
+[tool.ruff]
+line-length = 160
+extend-exclude = ["src/stkernel/_stk50.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
