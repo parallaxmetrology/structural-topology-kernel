@@ -19,6 +19,8 @@ The per-image split lets micrographs of one specimen fall on both sides and infl
 - Drop the 9 acquisition-sensitive channels (tonal, spectral bands, edge sharpness and roughness): **0.829**. The result is structural, not a fingerprint of brightness or focus. Those 9 alone: 0.77.
 - Against the union of S2 two-point statistics + Haralick + HOG (7,461 dims): the union scores 0.780, and a 50-component PCA of it (dimension-matched) 0.721. STK-50: 0.832.
 
+**Against a stronger baseline.** A later re-evaluation with stricter grouping and freshly computed features found that an ordinary 83-feature texture set (intensity moments, LBP, GLCM) scores 0.761, against 0.699–0.726 for STK, and that adding STK to it does not clearly help. So STK beats HOG, and Haralick where it was run, but not conventional texture. See [known-issues.md](known-issues.md) §13.
+
 Per class (grouped): network 0.97, spheroidite 0.93, pearlite 0.90, pearlite + widmanstätten 0.89, pearlite + spheroidite 0.82, spheroidite + widmanstätten 0.76, martensite 0.55 (2 specimens; can't be validated).
 
 ## 2. Label ambiguity: UHCSDB
@@ -46,7 +48,7 @@ No classifier: distances to class centroids in standardized STK space.
 
 Against a stronger, connectivity-aware incumbent (+ components, skeleton density, distance-transform statistics, throat radius), STK adds ΔR² +0.001 linearly (95 % CI −0.001 to +0.003) and +0.011 with boosting (CI +0.005 to +0.016).
 
-Read: one fixed descriptor, not designed for flow, matches the standard purpose-built ones. It isn't a better permeability predictor.
+Read: one fixed descriptor, not designed for flow, matches the standard purpose-built ones and adds a little for nonlinear models. It isn't a better permeability predictor. A later re-evaluation agrees (ΔR² +0.009 with boosting; the best conventional linear model is still as good): [known-issues.md](known-issues.md) §7.
 
 ## Also recorded
 

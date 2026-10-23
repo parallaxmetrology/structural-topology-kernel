@@ -14,7 +14,9 @@ repository-code: https://github.com/parallaxmetrology/structural-topology-kernel
 keywords: [materials informatics, microstructure, SEM, EBSD, featurizer, interpretable descriptors]
 abstract: >
   A fixed, training-free 50-coordinate descriptor of grayscale microstructure fields.
-  On UHCSDB steel micrographs it reaches 0.832 macro AUC grouped by specimen (HOG 0.728,
-  Haralick 0.629), 0.964 on a second bainite dataset, matches standard descriptors on
-  2-D permeability, and quantifies label ambiguity. The benchmarks reproduce these
-  results from shipped feature tables.
+  On UHCSDB steel micrographs it reaches 0.832 macro AUC grouped by specimen in its
+  original evaluation (HOG 0.728, Haralick 0.629), 0.964 on a second bainite dataset,
+  matches standard descriptors on 2-D permeability, and quantifies label ambiguity.
+  A stricter re-evaluation found an ordinary texture set ranks UHCSDB classes better
+  (0.761 against 0.70-0.73). The benchmarks reproduce the original results from
+  shipped feature tables.

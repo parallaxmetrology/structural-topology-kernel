@@ -42,9 +42,13 @@ The UHCSDB database gives a specimen key for 803 of the 961 micrographs. The pub
 
 Martensite comes from 2 specimens and scores 0.555 under grouping (near chance). Pearlite + spheroidite has 6 specimens. Per-class numbers for these are reported but shouldn't be leaned on.
 
-## 7. Permeability: competitive, not additive
+## 7. Permeability: competitive, with a small nonlinear addition
 
-STK-50 alone predicts 2-D log-permeability about as well as porosity + specific surface + Euler number + two-point statistics (R² 0.939 vs 0.937, linear), but porosity alone already gives 0.920. Added to a connectivity-aware incumbent it contributes nothing linearly (ΔR² +0.001, 95 % CI includes 0) and a small nonlinear amount with gradient boosting (+0.011, CI +0.005 to +0.016). A strong general descriptor, not a better permeability predictor.
+STK-50 alone predicts 2-D log-permeability about as well as porosity + specific surface + Euler number + two-point statistics (R² 0.939 vs 0.937, linear), but porosity alone already gives 0.920. Added to a connectivity-aware incumbent it contributes nothing linearly (ΔR² +0.001, 95 % CI includes 0) and a small nonlinear amount with gradient boosting (+0.011, CI +0.005 to +0.016).
+
+A separate re-evaluation (2026-10-23, repaired kernel release, 26 conventional features) agrees. Adding STK to gradient boosting raises test R² from 0.921 to 0.931 (ΔR² +0.009, interval +0.004 to +0.015), which is 12 % less squared error in log permeability. The best conventional linear model (0.939) is still as good as or better than that combination. Almost all of the signal is in the 46 coordinates the repair did not touch. The result is also sensitive to representation: enlarging the images to 256 px, which adds no information, changes the boosting gain to +0.026 and the linear one to −0.007.
+
+A strong general descriptor with a real but estimator-dependent addition; not a better permeability predictor.
 
 ## 8. Label ambiguity: a structure, not a precise rate
 
@@ -65,3 +69,38 @@ If blob detection or island segmentation throws, `blob_count` or `n_islands` is 
 ## 12. scikit-image < 2
 
 The kernel calls `remove_small_objects(min_size=...)`, deprecated in scikit-image 0.26 and due for removal in 2.0. The dependency is pinned below 2.
+
+## 13. A stronger texture baseline (2026-10-23)
+
+The UHCSDB comparison in this repository is against HOG and Haralick. A stricter re-evaluation added an ordinary texture set and found it ranks the classes better than STK.
+
+The re-evaluation was a separate local study, so its features are not shipped here. Its setup:
+- the 803 micrographs with a recorded specimen (43 specimens);
+- 5-fold `GroupKFold` outer and 3-fold inner, class-balanced logistic regression with the regularization chosen on the inner folds;
+- all imputation, scaling and PCA fitted on training folds only;
+- freshly computed features: STK from a repaired release of the kernel (the four `g1`/`g3` coordinates of §1 recomputed as path and turning measures), texture-83, and HOG-7200 reduced to 50 by PCA.
+
+| UHCSDB (803 images, 43 specimens) | macro AUC | 95 % interval | log loss |
+|---|---|---|---|
+| texture-83 (intensity moments and quantiles; uniform LBP at P8/R1 and P16/R2; GLCM statistics) | **0.761** | 0.694–0.833 | 2.466 |
+| STK, 46 untouched coordinates | 0.726 | 0.643–0.824 | 1.827 |
+| STK-50 (repaired) | 0.699 | 0.620–0.798 | 1.548 |
+| texture-83 + HOG-50 | 0.688 | 0.609–0.768 | 2.141 |
+| HOG-50 | 0.647 | 0.568–0.708 | 2.510 |
+| texture-83 + STK-50 (follow-up, chosen after seeing the above) | 0.721 | | 1.490 |
+
+| Bainite (386 tiles, 26 source-image groups) | macro AUC |
+|---|---|
+| texture-83 | 0.979 |
+| STK-50 (repaired) | 0.965 |
+| STK, 46 untouched coordinates | 0.958 |
+| HOG-50 | 0.750 |
+
+What this changes:
+
+- **"Beats conventional descriptors" is retired.** STK beats HOG under every setup tried, and Haralick wherever it was run, but not a well-built texture set. Adding STK to texture does not clearly improve macro AUC: −0.040 (−0.098 to +0.020) on UHCSDB, +0.002 (−0.007 to +0.015) on bainite.
+- **One favourable result, exploratory.** Texture + STK lowers UHCSDB log loss from 2.466 to 1.490, a paired reduction of 0.976 (group-bootstrap interval 0.268 to 1.782). Accuracy moves from 61.8 % to 63.0 %, which is within noise. The models were selected for AUC and no conventional model was calibrated, so this is a lead for a probability-focused study, not a calibration claim. It does not recur on bainite.
+- **The original 0.832 is not wrong; it answers a more lenient question.** The difference from 0.70–0.73 comes from the cohort (961 against 803 images), the fold and model-selection setup, and a few cached image readouts. It is not caused by the four `g1`/`g3` coordinates: the 46 untouched coordinates alone score 0.726.
+- **Limits.** Two specimens carry martensite and one mixed class has only eight eligible images. The bainite groups are source-image filename prefixes, not verified physical specimens. All of this reuses archives that had already been examined, so none of it is fresh independent confirmation.
+
+The kernel in this repository stays frozen, so that the recorded results keep reproducing. The repaired release is a separate artifact.
